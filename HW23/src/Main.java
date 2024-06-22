@@ -3,6 +3,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Main {
+
+    private static final String PHONE_REGEX = "(\\d{3})(\\d{3})(\\d{3})";
+    private static final String NUMBER_REGEX = "+48 $1 $2 $3";
+    private static final String INPUT_REGEX = "\\D+";
     private static Set<String> phoneNumbers = new TreeSet<>();
 
     public static void main(String[] args) {
@@ -18,14 +22,13 @@ public class Main {
                 System.out.println("Bye bye!");
                 return;
             } else {
-                String number = input.replaceAll("\\D+", "").trim();
+                String number = input.replaceAll(INPUT_REGEX, "").trim();
                 if((number.length() > 10) || (number.length() < 9)) {
                     System.out.println("Please enter a valid phone number");
                     continue;
                 } else if (number.length() == 9) {
                     addPhoneNumber(number);
                 }
-
             }
         }
     }
@@ -43,7 +46,7 @@ public class Main {
             return;
         }
         for (String phone : phoneNumbers) {
-            String number = phone.replaceAll("(\\d{3})(\\d{3})(\\d{3})", "+48 $1 $2 $3");
+            String number = phone.replaceAll(PHONE_REGEX, NUMBER_REGEX);
             System.out.println(number);
         }
     }
